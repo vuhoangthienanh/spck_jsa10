@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root{
+            --red: #ff3838;
+        }
+        *{
+            font-family: "Nunito", sans-serif;
+            margin:0; padding:0;
+            box-sizing: border-box;
+            outline: none; border: none;
+            text-decoration: none;
+        }
+        html{
+            font-size: 67.5%;
+            overflow-x: hidden;
+        }
+
+        body{
+            background: #f7f7f7;
+        }
+        header{
+            position: fixed;
+            top:0; left:0; right:0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff;
+            padding: 2rem 9%;
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+        }
+        header .navbar{
+            display: flex;
+        }
+        header .navbar a{
+            font-size: 2rem;
+            margin-left: 2rem;
+            color: #666;
+        }
+        header .navbar a:hover{
+            color: red;
+        }
+        .video iframe {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Food Store</h1>
+        <nav class=" navbar">
+            <a href="file:///C:/Users/admin/Desktop/web%20basic/WEB%20ADVANCE/foodstore/fs_index2.html">Sign in</a>
+            <a href="file:///C:/Users/admin/Desktop/web%20basic/WEB%20ADVANCE/foodstore/fs_index3.html">Sign up</a>
+        </nav>
+    </header>
+    <div class="video">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/G-T3qKl6y-c" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+    </div>
+</body>
+</html>
