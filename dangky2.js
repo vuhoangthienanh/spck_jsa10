@@ -1,87 +1,122 @@
-document.querySelector("#demo").onclick = function () { check() };
+let menu = document.querySelector("#menu-bar");
+let navbar = document.querySelector(".navbar");
 
-function check() {
-    let name = document.getElementById("name").value;
-    localStorage.setItem("name", name);
-    let info = document.getElementById("info").value;
-    localStorage.setItem("email", info);
-    let pass = document.getElementById("pass").value;
-    let repass = document.getElementById("repass").value;
-    let dob = document.getElementById("dob").value;
-    let gender = document.getElementById("gender").value;
-    if (name.length == 0 || info.length == 0 || pass.length == 0 || repass.length == 0 || dob.length == 0 || gender == "Gender") {
-        alert("Complete your form");
-    }
-    else if (name.length < 6) {
-        alert("Name must contain at least 6 letters");
-    }
-    else if (pass.length < 6) {
-        alert("Password must contain at least 6 letters");
-    }
-    else if (repass != pass) {
-        alert("Password must be the same");
-    }
-    else {
-        isOverLapName();
-        return true;
-    }
+menu.onclick = () => {
+    menu.classList.toggle("fa-times");
+    navbar.classList.toggle("active");
 }
 
-function isOverLapName () {
-    let user = String(document.getElementById("name").value);
-    let database = localStorage.getItem("name");
-    let overLapName = user.indexOf(database);
-    console.log(overLapName);
-    if (overLapName == -1) {
-        validateEmail();
-        return true;
-    }
-    else {
-        alert("This name has already existed");
-    }
+window.onscroll = () => {
+    menu.classList.remove("fa-times");
+    navbar.classList.remove("active");
 }
 
-function validateEmail () {
-    let info = document.getElementById("info").value;
-    var atposition = info.indexOf("@");
-    var dotposition = info.indexOf(".");
-    if (atposition == -1 || dotposition == -1) {
-        alert("Enter a valid email address.");
-    }
-    else {
-        isOverLapEmail();
-        return true;
-    }
-}
 
-function isOverLapEmail() {
-    let email = String(document.getElementById("info").value);
-    let database = localStorage.getItem("email");
-    let overLapName = email.indexOf(database);
-    if (overLapName == -1) {
-        signUp();
-        return true;
-    }
-    else {
-        alert("This email has already existed");
-    }
-}
 
-function signUp () {
-    if (check() == true) {
-        if (isOverLapName() == true) {
-            if (validateEmail() == true) {
-                if (isOverLapEmail() == true) {
-                    let user = Array(document.getElementById("name").value);
-                    let pass = Array(document.getElementById("pass").value);
-                    let userandpass = user.concat(pass);
-                    localStorage.setItem("userpass", userandpass);
-                    console.log(21);
-                    location.href = 'fs_index2.html';
-                    // Mở sang trang đăng nhập
-                }
-            }
+const btn = document.querySelectorAll("button");
+btn.forEach(function (button, index) {
+    button.addEventListener("click", function (event) {
+        let btnItem = event.target;
+        let product = btnItem.parentElement;
+        let productImg = product.querySelector("img").src;
+        let productName = product.querySelector(".name").innerText;
+        let productPrice = product.querySelector(".order .box-container .box span").innerText;
+        addcart(productImg, productName, productPrice);
+        deleteCart();
+    })
+
+})
+
+function addcart(productImg, productName, productPrice) {
+    let addtr = document.createElement("tr");
+    let cartItem = document.querySelectorAll("tbody tr");
+    for (let i = 0; i < cartItem.length; i++) {
+        let productT = document.querySelectorAll(".title");
+        if (productT[i].innerHTML == productName) {
+             alert("Your product is already in the cart");
+            return;
         }
     }
+    let trcontent = '<tr><td style = "display: flex; align-items: center" ><img style="width: 10rem" src="' + productImg + '"><span class="title">' + productName + '</span></td><td class="price"><p><span>' + productPrice + '</span><sup>VNĐ</sup></p></td><td><input class="number" style="width: 4rem; outline: none;" type="number" value="1" min="1"></td><td class="delete" style="cursor: pointer">Delete</td></tr>'
+    addtr.innerHTML = trcontent;
+    let cartTable = document.querySelector("tbody");
+    cartTable.appendChild(addtr);
+    carttotal()
 }
+
+function carttotal() {
+    let cartItem = document.querySelectorAll("tbody tr");
+    let totalC = 0;
+    for (let i = 0; i < cartItem.length; i++) {
+        let inputValue = cartItem[i].querySelector("input").value;
+        let productPriceValue = cartItem[i].querySelector(".price p span").innerText;
+        let totalA = inputValue * productPriceValue * 1000;
+        totalC = totalC + totalA;
+    }
+
+    let totalB = totalC.toLocaleString('de-DE');
+
+    document.getElementById("total").innerHTML = totalB;
+    inputChange();
+}
+
+function deleteCart() {
+    let cartItem = document.querySelectorAll("tbody tr");
+    for (let i = 0; i < cartItem.length; i++) {
+        let productD = document.querySelectorAll(".delete");
+        productD[i].addEventListener("click", function(event) {
+            let cartDelete = event.target;
+            let cartItemR = cartDelete.parentElement;
+            cartItemR.remove();
+            carttotal();
+            console.log(cartItemR);
+        }) 
+        
+    }
+}
+
+function inputChange() {
+    let cartItem = document.querySelectorAll("tbody tr");
+    for (let i = 0; i < cartItem.length; i++) {
+        let inputValue = cartItem[i].querySelector("input");
+        inputValue.addEventListener("change", function() {
+            carttotal();
+        })
+
+    }
+
+}
+
+const cartbtn = document.querySelector(".bi-x-lg");
+const cartshow = document.querySelector(".bi-cart-plus");
+cartshow.addEventListener("click", function() {
+    document.querySelector(".cart").style.right = "0";
+})
+cartbtn.addEventListener("click", function () {
+    document.querySelector(".cart").style.right = "100%";
+})
+
+
+document.querySelector(".qanda .button").onclick = function () { check() };
+function check () {
+    let name = document.querySelector(".qanda .name").value;
+    let email = document.querySelector(".qanda .email").value;
+    let question = document.querySelector(".qanda .question").value;
+
+    if (name.length == 0) {
+        document.getElementById("name").value = "Please enter your name";
+    }
+    else if (email.length == 0) {
+        document.getElementById("email").value = "Please enter your email";
+    }
+    else if (question.length == 0) {
+        document.getElementById("question").value = "Please enter your question";
+    }
+    else {
+        document.querySelector(".qanda h2").style.display = "block";
+        document.querySelector(".qanda .row").style.display = "none";
+    }
+    
+}
+
 
