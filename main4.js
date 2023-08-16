@@ -14,13 +14,13 @@ window.onscroll = () => {
 
 
 const btn = document.querySelectorAll("button");
-btn.forEach(function (button, index) {
+btn.forEach(function (button) {
     button.addEventListener("click", function (event) {
         let btnItem = event.target;
-        let product = btnItem.parentElement;
+        let product = btnItem.parentElement.parentElement;
         let productImg = product.querySelector("img").src;
         let productName = product.querySelector(".name").innerText;
-        let productPrice = product.querySelector(".order .box-container .box span").innerText;
+        let productPrice = product.querySelector(".order .box-container .box .info h4 span").innerText;
         addcart(productImg, productName, productPrice);
         deleteCart();
     })
@@ -93,9 +93,8 @@ cartshow.addEventListener("click", function() {
     document.querySelector(".cart").style.right = "0";
 })
 cartbtn.addEventListener("click", function () {
-    document.querySelector(".cart").style.right = "100%";
+    document.querySelector(".cart").style.right = "-100%";
 })
-
 
 
 document.querySelector(".qanda .button").onclick = function () { check() };
