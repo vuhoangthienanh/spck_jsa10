@@ -84,7 +84,6 @@ function signUp () {
                     let pass = Array(document.getElementById("pass").value);
                     let userandpass = user.concat(pass);
                     localStorage.setItem("userpass", userandpass);
-                    console.log(21);
                     location.href = "file:///C:/Users/admin/Desktop/web%20basic/WEB%20ADVANCE/foodstore/fs_index2.html";
                     // Mở sang trang đăng nhập
                 }
@@ -92,24 +91,4 @@ function signUp () {
         }
     }
 }
-
-
-
-
-function signup() {
-    if (checkInformation() == true) {
-        if (isOverlap() == true) {
-            let user = Array(document.getElementById("user").value);
-            let pass = Array(document.getElementById("pass").value);
-            let userandpass = user.concat(pass);
-            let dtb = localStorage.getItem("userpass").split(",");
-            let infor = dtb.concat(userandpass);
-            localStorage.setItem("userpass", infor);
-            document.getElementById("validity").textContent = "";
-            document.getElementById("validity").style.visibility = "hidden";
-            location.href = "login.html";
-        }
-    }
-}
-
 
